@@ -61,7 +61,7 @@ def solicitations(page):
 
 @app.route('/solicitations/<id>')
 def solicitation(id):
-    r = requests.get(FBOPEN_URI, params={'q': 'solnbr:{}'.format(id, 'rows': 1})
+    r = requests.get(FBOPEN_URI, params={'q': 'solnbr:{}'.format(id), 'rows': 1})
     print r.request.url
 
     _parse_obj_dates(obj, 'close_dt', 'open_dt', 'posted_dt')
