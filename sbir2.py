@@ -10,6 +10,8 @@ app = Flask(__name__)
 AGENCIES = {
         'Department of Health and Human Services': 'HHS',
         'National Science Foundation': 'NSF',
+        'Department of Commerce': 'DOC',
+        'National Aeronautics and Space Administration': 'NASA',
 }
 
 SOLICITATIONS_PER_PAGE = 20
