@@ -22,7 +22,7 @@
     <tbody>
         {% for row in results %}
         <tr>
-            <td><strong><a href="/solicitations/{{row.solnbr | lower}}">{{row.title}}</a></strong></td>
+            <td><strong><a href="/solicitations/{{ row.solnbr }}">{{ row.title }}</a></strong></td>
             <td>{{ row.agency_abbr }}</td>
             <td>{{ row.posted_dt|datetime }}</td>
             <td>{{ row.open_dt|datetime }}</td>
