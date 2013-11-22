@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% block title %}
+    SBIR.gov | Solicitation {{ obj.solnbr }}
+{% endblock %}
+
+{% block body %}
+
+<h1>{{ obj.title }}</h1>
+
+<table class="table">
+    <tr>
+        <th>Agency</th>
+        <td>{{ obj.agency }}</td>
+        <th>Office</th>
+        <td>{{ office }}</td>
+    </tr>
+    <tr>
+        <th>Solicitation Number</th>
+        <td>{{ obj.solnbr }}</td>
+        <th>Release Date</th>
+        <td>{{ obj.posted_dt|datetime }}</td>
+    </tr>
+    <tr>
+        <th>Open Date</th>
+        <td>{{ obj.open_dt|datetime }}</td>
+        <th>Close Date</th>
+        <td>{{ obj.close_dt|datetime }}</td>
+    </tr>
+    <tr>
+        <th colspan="4">Description</th>
+    </tr>
+    <tr>
+        <td colspan="4">{{ obj.description|safe }}</td>
+    </tr>
+</table>
+<!--
+agency
+program year: none?
+solnbr
+release date: posted_date
+open date: open_date
+close date: close_date
+-->
+
+{% endblock %}

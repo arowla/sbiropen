@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% from './macros/pagination.html' import render_pagination %}
+
+{% block title %}
+  SBIR.gov
+{% endblock %}
+
+{% block body %}
+<h1>Open/Future Solicitations</h1>
+
+{% if results %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Solicitation</th>
+            <th>Agency</th>
+            <th>Release Date</th>
+            <th>Open Date</th>
+            <th>Close Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in results %}
+        <tr>
+            <td><strong><a href="/solicitations/{{row.solnbr | lower}}">{{row.title}}</a></strong></td>
+            <td>{{ row.agency_abbr }}</td>
+            <td>{{ row.posted_dt|datetime }}</td>
+            <td>{{ row.open_dt|datetime }}</td>
+            <td>{{ row.close_dt|datetime }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div>
+    {{ no_results_msg }}
+</div>
+{% endif %}
+
+{{ render_pagination(pager) }}
+
+{% endblock %}
+        

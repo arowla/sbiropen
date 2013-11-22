@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block title %}SBIR.gov{%endblock%}
+        </title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/dist/css/bootstrap-cerulean.min.css') }}" />
+        <script type="text/javascript" src="{{ url_for('static', filename='bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="page-header">
+                    <h1>SBIR/STTR</h1>
+                    <small>SMALL BUSINESS INNOVATION RESEARCH</small>
+                    <small>SMALL BUSINESS TECHNOLOGY TRANSFER</small>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        &nbsp;
+                    </div>
+                    <div class="row">
+                        Login | Company Registry
+                    </div>
+                    <div class="row">
+                        <form role="search" class="form-inline" action="{{ url_for('solicitations') }}">
+                            <div class="input-group">
+                                <input type="search" name="search" placeholder="Search SBIR/STTR" class="input-sm form-control"/>
+                                <span class="input-group-btn"><input type="button" name="Go" value="Go" class="btn btn-sm"/></span>
+                            </div>
+                            <div class="form-group">
+                                <label><input type="radio" name="search-type" value="site" /> Site</label>
+                                <label><input type="radio" name="search-type" value="awards" /> Awards</label>
+                                <label><input type="radio" name="search-type" value="open-solicitations" /> Open Solicitations</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar navbar-inverse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="/solicitations">Solicitations</a></li>
+                    <li><a href="#">Awards</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Contacts</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+        {% block body %}{%endblock%}
+        </div>
+    </body>
+</html>
+
