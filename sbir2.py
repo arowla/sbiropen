@@ -1,9 +1,10 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, Markup
 from util.pagination import Pagination
 
 from datetime import datetime
 import requests
 import sys
+import scrubber
 
 app = Flask(__name__)
 
@@ -61,15 +62,18 @@ def solicitations(page):
 
 @app.route('/solicitations/<id>')
 def solicitation(id):
-    r = requests.get(FBOPEN_URI, params={'q': 'solnbr:{}'.format(id), 'rows': 1})
+    columns = 'description,title,summary,listing_url,solnbr,office,agency,close_dt,open_dt,posted_dt'
+    r = requests.get(FBOPEN_URI, params={'q': 'solnbr:{}'.format(id), 'rows': 1, 'fl': columns})
     print r.request.url
+    obj = _get_results(r)[0]
 
     _parse_obj_dates(obj, 'close_dt', 'open_dt', 'posted_dt')
     _abbreviate_agency(obj)
+    description = sanitize_html(obj.get('description', obj.get('summary')))
 
     #program_year = obj['close_dt'].year
 
-    return render_template("solicitation.html", id=id, obj=obj)
+    return render_template("solicitation.html", id=id, obj=obj, description=description)
 
 
 def _get_results(raw):
@@ -93,12 +97,18 @@ def _abbreviate_agency(obj):
     if obj.has_key('agency'):
         obj['agency_abbr'] = AGENCIES.get(obj['agency'], obj['agency'])
 
+
 @app.template_filter('datetime')
 def datetimeformat(value, format='%m/%d/%Y'):
     if value:
         return value.strftime(format)
     else:
         return ''
+
+
+def sanitize_html(text):
+    return Markup(scrubber.Scrubber().scrub(text))
+
 
 def url_for_other_page(page):
     args = request.view_args.copy()
