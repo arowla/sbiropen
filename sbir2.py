@@ -36,7 +36,7 @@ def solicitations(page):
     offset = Pagination.offset(page, SOLICITATIONS_PER_PAGE)
     print offset
     
-    search_terms = '(sbir OR "small business innovation research")'
+    search_terms = '((sbir OR "small business innovation research") AND NOT SBIRS)'
     all_search_terms = ''
     if user_search_terms:
         all_search_terms = ' AND '.join([search_terms, user_search_terms])
