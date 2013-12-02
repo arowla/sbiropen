@@ -6,7 +6,12 @@
 {% endblock %}
 
 {% block body %}
-<h1>Open/Future Solicitations</h1>
+<h1>
+    Open/Future Solicitations
+    {% if results %}
+    <small>Displaying {{ pager.record_range }} of {{ pager.total_count }}</small>
+    {% endif %}
+</h1>
 
 {% if results %}
 <table class="table table-striped">

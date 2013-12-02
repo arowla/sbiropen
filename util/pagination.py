@@ -17,6 +17,12 @@ class Pagination(object):
         return ((page - 1) * per_page)
 
     @property
+    def record_range(self):
+        record_min = ((self.page - 1) * self.per_page) + 1
+        record_max = self.page * self.per_page
+        return '{} to {}'.format(record_min, record_max)
+
+    @property
     def has_prev(self):
         return self.page > 1
 
