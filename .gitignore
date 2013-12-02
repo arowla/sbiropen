@@ -1,4 +1,4 @@
-*.sw[j-p]
+*.sw[i-p]
 *.py[cod]
 
 # C extensions
