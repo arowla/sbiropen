@@ -28,7 +28,7 @@
         {% for row in results %}
         <tr>
             <td><strong><a href="/solicitations/{{ row.solnbr }}">{{ row.title }}</a></strong></td>
-            <td>{{ row.agency_abbr }}</td>
+            <td><span title="{{ row.agency }}" class="agency-tooltip">{{ row.agency_abbr }}</span></td>
             <td>{{ row.posted_dt|datetime }}</td>
             <td>{{ row.open_dt|datetime }}</td>
             <td>{{ row.close_dt|datetime }}</td>
