@@ -9,10 +9,12 @@ import scrubber
 app = Flask(__name__)
 
 AGENCIES = {
-        'Department of Health and Human Services': 'HHS',
-        'National Science Foundation': 'NSF',
-        'Department of Commerce': 'DOC',
-        'National Aeronautics and Space Administration': 'NASA',
+    'Department of Health and Human Services': 'HHS',
+    'National Science Foundation': 'NSF',
+    'Department of Commerce': 'DOC',
+    'National Aeronautics and Space Administration': 'NASA',
+    'Department of Energy - Office of Science': 'DOE',
+    'Department of the Air Force': 'USAF',
 }
 
 SOLICITATIONS_PER_PAGE = 20
