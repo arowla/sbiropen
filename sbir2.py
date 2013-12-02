@@ -45,7 +45,7 @@ def solicitations(page):
     print all_search_terms
     
     columns = 'description,title,summary,listing_url,solnbr,office,agency,close_dt,open_dt,posted_dt'
-    r = requests.get(FBOPEN_URI, params={'q': all_search_terms, 'start': offset, 'rows': SOLICITATIONS_PER_PAGE, 'fl': columns})
+    r = requests.get(FBOPEN_URI, params={'q': all_search_terms, 'fq': 'listing_url:[* TO *]', 'start': offset, 'rows': SOLICITATIONS_PER_PAGE, 'fl': columns})
     print r.request.url
 
     count = r.json()['response']['numFound']
