@@ -20,6 +20,8 @@ class Pagination(object):
     def record_range(self):
         record_min = ((self.page - 1) * self.per_page) + 1
         record_max = self.page * self.per_page
+        if record_max > self.total_count:
+            record_max = self.total_count
         return '{} to {}'.format(record_min, record_max)
 
     @property
