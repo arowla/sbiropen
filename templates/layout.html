@@ -31,7 +31,7 @@
                     <div class="row">
                         <form role="search" class="form-inline" action="{{ url_for('solicitations') }}">
                             <div class="input-group">
-                                <input type="search" name="search" placeholder="Search SBIR/STTR" class="input-sm form-control"/>
+                                <input type="search" name="search" placeholder="{% if search_terms %}{{ search_terms}}{% else %}Search SBIR/STTR{% endif %}" class="input-sm form-control"/>
                                 <span class="input-group-btn"><input type="submit" name="Go" value="Go" class="btn btn-sm"/></span>
                             </div>
                         </form>

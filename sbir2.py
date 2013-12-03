@@ -59,7 +59,7 @@ def solicitations(page):
         _parse_obj_dates(obj, 'close_dt', 'open_dt', 'posted_dt')
         _abbreviate_agency(obj)
 
-    return render_template("solicitations.html", pager=pagination, results=results, no_results_msg=no_results_msg)
+    return render_template("solicitations.html", search_terms=user_search_terms, pager=pagination, results=results, no_results_msg=no_results_msg)
 
 
 @app.route('/solicitations/<id>')

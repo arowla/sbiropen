@@ -10,6 +10,9 @@
     Open/Future Solicitations
     {% if results %}
     <small>Displaying {{ pager.record_range }} of {{ pager.total_count }}</small>
+        {% if search_terms %}
+        <small>for search "{{search_terms}}"</small>
+        {% endif %}
     {% endif %}
 </h1>
 
