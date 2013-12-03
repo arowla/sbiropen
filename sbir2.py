@@ -15,6 +15,7 @@ AGENCIES = {
     'National Aeronautics and Space Administration': 'NASA',
     'Department of Energy - Office of Science': 'DOE',
     'Department of the Air Force': 'USAF',
+    'Other Defense Agencies': 'DOD',
 }
 
 SOLICITATIONS_PER_PAGE = 20
@@ -94,6 +95,7 @@ def _parse_obj_dates(obj, *keys):
     for key in keys:
         _parse_obj_date(obj, key)
 
+
 def _abbreviate_agency(obj):
     if obj.has_key('agency'):
         obj['agency_abbr'] = AGENCIES.get(obj['agency'], obj['agency'])
@@ -115,6 +117,7 @@ def url_for_other_page(page):
     args = request.view_args.copy()
     args['page'] = page
     return url_for(request.endpoint, **args)
+
 
 app.jinja_env.globals['url_for_other_page'] = url_for_other_page
 app.jinja_env.filters['sanitize_html'] = sanitize_html
