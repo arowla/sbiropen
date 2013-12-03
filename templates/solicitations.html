@@ -11,7 +11,7 @@
     {% if results %}
     <small>Displaying {{ pager.record_range }} of {{ pager.total_count }}</small>
         {% if search_terms %}
-        <small>for search "{{search_terms}}"</small>
+        <small>for search "<strong>{{search_terms}}</strong>"</small>
         {% endif %}
     {% endif %}
 </h1>
