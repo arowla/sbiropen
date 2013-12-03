@@ -4,7 +4,7 @@ from util.pagination import Pagination
 from datetime import datetime
 import requests
 import sys
-import scrubber
+import bleach
 
 app = Flask(__name__)
 
@@ -34,7 +34,6 @@ def solicitations(page):
         page = 1
 
     offset = Pagination.offset(page, SOLICITATIONS_PER_PAGE)
-    print offset
     
     search_terms = '((sbir OR "small business innovation research") AND NOT SBIRS)'
     all_search_terms = ''
@@ -71,7 +70,7 @@ def solicitation(id):
 
     _parse_obj_dates(obj, 'close_dt', 'open_dt', 'posted_dt')
     _abbreviate_agency(obj)
-    description = sanitize_html(obj.get('description', obj.get('summary')))
+    description = obj.get('description', obj.get('summary'))
 
     #program_year = obj['close_dt'].year
 
@@ -109,7 +108,7 @@ def datetimeformat(value, format='%m/%d/%Y'):
 
 
 def sanitize_html(text):
-    return Markup(scrubber.Scrubber().scrub(text))
+    return Markup(bleach.clean(text))
 
 
 def url_for_other_page(page):
@@ -118,6 +117,7 @@ def url_for_other_page(page):
     return url_for(request.endpoint, **args)
 
 app.jinja_env.globals['url_for_other_page'] = url_for_other_page
+app.jinja_env.filters['sanitize_html'] = sanitize_html
 
 
 if __name__ == "__main__":

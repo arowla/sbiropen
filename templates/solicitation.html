@@ -30,16 +30,8 @@
         <th colspan="4">Description</th>
     </tr>
     <tr>
-        <td colspan="4">{{ description|safe }}</td>
+        <td colspan="4"><p>{{ description|sanitize_html }}</p></td>
     </tr>
 </table>
-<!--
-agency
-program year: none?
-solnbr
-release date: posted_date
-open date: open_date
-close date: close_date
--->
 
 {% endblock %}
