@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, request, Markup
 from util.pagination import Pagination
 
 from datetime import datetime
+import os
 import requests
 import sys
 import bleach
@@ -19,7 +20,13 @@ AGENCIES = {
 }
 
 SOLICITATIONS_PER_PAGE = 20
-FBOPEN_URI = 'http://fbopen-lb1-1729291742.us-west-2.elb.amazonaws.com:3000/v0/opp'
+FBOPEN_URI = 'http://api.data.gov/gsa/fbopen-dev/v0/opps'
+
+try:
+    API_KEY = os.environ['FBOPEN_API_KEY']
+except KeyError:
+    print "Please set your FBOPEN_API_KEY environment variable."
+    sys.exit(1)
 
 @app.route('/')
 def index():
@@ -45,10 +52,10 @@ def solicitations(page):
     print all_search_terms
     
     columns = 'description,title,summary,listing_url,solnbr,office,agency,close_dt,open_dt,posted_dt'
-    r = requests.get(FBOPEN_URI, params={'q': all_search_terms, 'fq': 'listing_url:[* TO *]', 'start': offset, 'rows': SOLICITATIONS_PER_PAGE, 'fl': columns})
+    r = requests.get(FBOPEN_URI, params={'q': all_search_terms, 'fq': 'listing_url:[* TO *]', 'start': offset, 'rows': SOLICITATIONS_PER_PAGE, 'fl': columns, 'api_key': API_KEY})
     print r.request.url
 
-    count = r.json()['response']['numFound']
+    count = r.json().get('numFound')
     pagination = Pagination(page, SOLICITATIONS_PER_PAGE, count)
 
     results = _get_results(r)
@@ -65,7 +72,7 @@ def solicitations(page):
 @app.route('/solicitations/<id>')
 def solicitation(id):
     columns = 'description,title,summary,listing_url,solnbr,office,agency,close_dt,open_dt,posted_dt'
-    r = requests.get(FBOPEN_URI, params={'q': 'solnbr:{}'.format(id), 'rows': 1, 'fl': columns})
+    r = requests.get(FBOPEN_URI, params={'q': 'solnbr:{}'.format(id), 'rows': 1, 'fl': columns, 'api_key': API_KEY})
     print r.request.url
     obj = _get_results(r)[0]
 
@@ -79,7 +86,7 @@ def solicitation(id):
 
 
 def _get_results(raw):
-    return raw.json().get('response').get('docs')
+    return raw.json().get('docs')
 
 
 def _parse_date(date_str):
